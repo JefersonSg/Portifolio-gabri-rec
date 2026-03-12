@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
+import styles from './Portifolio.module.css';
 import {
   Building2,
   Camera,
@@ -57,7 +58,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   casamento: {
     label: 'Casamentos',
     icon: Heart,
-    accent: 'from-emerald-300 via-red-500 to-emerald-400',
+    accent: 'emeraldRedEmerald',
     featured: {
       title: 'Juliana & Rafael',
       subtitle:
@@ -90,7 +91,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   preWedding: {
     label: 'Pré Wedding',
     icon: Camera,
-    accent: 'from-red-500 via-emerald-300 to-red-400',
+    accent: 'redEmeraldRed',
     featured: {
       title: 'Ana & Diego',
       subtitle:
@@ -123,7 +124,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   aniversario: {
     label: 'Aniversários',
     icon: Gift,
-    accent: 'from-emerald-300 via-red-500 to-red-400',
+    accent: 'emeraldRedRed',
     featured: {
       title: '15 Anos da Raica',
       subtitle:
@@ -156,7 +157,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   comercial: {
     label: 'Lojas & Comércios',
     icon: Store,
-    accent: 'from-red-500 via-red-400 to-emerald-300',
+    accent: 'redRedEmerald',
     featured: {
       title: 'Campanhas Comerciais',
       subtitle:
@@ -189,7 +190,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   institucional: {
     label: 'Institucionais',
     icon: Building2,
-    accent: 'from-emerald-300 via-emerald-500 to-red-500',
+    accent: 'emeraldEmeraldRed',
     featured: {
       title: 'Projetos Institucionais',
       subtitle:
@@ -222,7 +223,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
   reels: {
     label: 'Reels de Instagram',
     icon: Clapperboard,
-    accent: 'from-red-400 via-emerald-300 to-emerald-400',
+    accent: 'redEmeraldEmerald',
     featured: {
       title: 'Reels que prendem',
       subtitle:
@@ -263,8 +264,12 @@ const categoryOrder: CategoryKey[] = [
   'reels'
 ];
 
+function cx(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ');
+}
+
 function NeonOrb({ className }: { className: string }) {
-  return <div className={`absolute rounded-full blur-3xl ${className}`} />;
+  return <div className={cx(styles.neonOrb, className)} />;
 }
 
 function GallerySection({
@@ -275,6 +280,8 @@ function GallerySection({
   section: PortfolioSection;
 }) {
   const [index, setIndex] = useState<number>(0);
+  const [play, setPlay] = useState<boolean>(false);
+
   const Icon = section.icon;
 
   const next = () => setIndex((prev) => (prev + 1) % section.items.length);
@@ -284,80 +291,91 @@ function GallerySection({
     );
 
   return (
-    <section id={categoryKey} className="scroll-mt-28 py-12 md:py-20">
-      <div className="mb-7 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+    <section id={categoryKey} className={styles.gallerySection}>
+      <div className={styles.galleryHeader}>
         <div>
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.24em] text-emerald-300 backdrop-blur">
-            <Icon className="h-4 w-4" />
+          <div className={styles.sectionBadge}>
+            <Icon className={styles.badgeIcon} />
             {section.label}
           </div>
-          <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">
+          <h2 className={styles.galleryTitle}>
             Galeria de{' '}
-            <span className="bg-gradient-to-r from-emerald-300 via-white to-red-400 bg-clip-text text-transparent">
-              {section.label}
-            </span>
+            <span className={styles.gradientText}>{section.label}</span>
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400 md:text-base">
+          <p className={styles.galleryDescription}>
             Capa de destaque e slider com os demais trabalhos para apresentar
             seus projetos com impacto visual, fluidez e clareza.
           </p>
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className={styles.desktopControls}>
           <button
             onClick={prev}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-zinc-200 transition hover:border-emerald-400/40 hover:text-emerald-300"
+            className={styles.arrowButton}
             aria-label="Anterior"
             type="button"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className={styles.arrowIcon} />
           </button>
           <button
             onClick={next}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-zinc-200 transition hover:border-red-400/40 hover:text-red-300"
+            className={cx(styles.arrowButton, styles.arrowButtonRed)}
             aria-label="Próximo"
             type="button"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className={styles.arrowIcon} />
           </button>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/80 shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_0_80px_rgba(16,185,129,0.08)]">
-        <div className="relative h-[420px] md:h-[560px]">
+      <div className={styles.featuredCard}>
+        <div className={styles.featuredMedia}>
           <Image
             src={section.featured.image}
             alt={section.featured.title}
             fill
-            className="object-cover opacity-75"
+            className={styles.featuredImage}
             sizes="100vw"
-            priority={false}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.20),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(239,68,68,0.18),transparent_25%),linear-gradient(to_top,rgba(0,0,0,0.94),rgba(0,0,0,0.35),rgba(0,0,0,0.1))]" />
-          <div className="absolute inset-0 flex items-end p-6 md:p-10">
-            <div className="max-w-3xl">
-              <span
-                className={`inline-flex rounded-full bg-gradient-to-r ${section.accent} px-4 py-1 text-xs font-bold uppercase tracking-[0.22em] text-black`}
-              >
+          <div className={styles.featuredOverlay} />
+          <div className={styles.featuredContent}>
+            <div className={styles.featuredContentInner}>
+              <span className={cx(styles.featuredTag, styles[section.accent])}>
                 {section.featured.tag}
               </span>
-              <h3 className="mt-4 text-3xl font-black text-white md:text-6xl">
-                {section.featured.title}
-              </h3>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-300 md:text-lg">
+              <h3 className={styles.featuredTitle}>{section.featured.title}</h3>
+              <p className={styles.featuredSubtitle}>
                 {section.featured.subtitle}
               </p>
-              <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white backdrop-blur">
-                <Play className="h-4 w-4 text-emerald-300" />
+              <div className={styles.featuredMeta}>
+                <Play
+                  className={styles.playIcon}
+                  onClick={() => {
+                    setPlay(true);
+                  }}
+                />
                 Projeto em destaque
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/80">
+      {play && (
+        <div className={styles.PlayVideo}>
+          <video className={styles.videoPlayer} controls autoPlay>
+            <source src="/videos/video.mp4" type="video/mp4" />
+          </video>
+          <p
+            onClick={() => {
+              setPlay(false);
+            }}
+          >
+            xis
+          </p>
+        </div>
+      )}
+      <div className={styles.galleryGrid}>
+        <div className={styles.sliderCard}>
           <AnimatePresence mode="wait">
             <motion.div
               key={section.items[index].title}
@@ -365,73 +383,68 @@ function GallerySection({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -18 }}
               transition={{ duration: 0.35 }}
-              className="relative h-[360px] md:h-[470px]"
+              className={styles.sliderMedia}
             >
               <Image
                 src={section.items[index].image}
                 alt={section.items[index].title}
                 fill
-                className="object-cover"
+                className={styles.sliderImage}
                 sizes="(max-width: 1024px) 100vw, 70vw"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.94),rgba(0,0,0,0.28),rgba(0,0,0,0.1))]" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <div className="mb-3 inline-flex items-center rounded-full border border-emerald-400/20 bg-black/40 px-3 py-1 text-xs uppercase tracking-[0.22em] text-emerald-300">
+              <div className={styles.sliderOverlay} />
+              <div className={styles.sliderContent}>
+                <div className={styles.slidePill}>
                   Slide {String(index + 1).padStart(2, '0')}
                 </div>
-                <h4 className="text-2xl font-bold text-white md:text-4xl">
+                <h4 className={styles.slideTitle}>
                   {section.items[index].title}
                 </h4>
-                <p className="mt-2 max-w-2xl text-sm text-zinc-300 md:text-base">
-                  {section.items[index].text}
-                </p>
+                <p className={styles.slideText}>{section.items[index].text}</p>
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <div className="grid gap-4">
+        <div className={styles.thumbGrid}>
           {section.items.map((item, itemIndex) => (
             <button
               key={item.title}
               onClick={() => setIndex(itemIndex)}
               type="button"
-              className={`group flex items-center gap-4 rounded-[1.4rem] border p-3 text-left transition ${
-                itemIndex === index
-                  ? 'border-emerald-400/35 bg-white/[0.08] shadow-[0_0_30px_rgba(16,185,129,0.08)]'
-                  : 'border-white/10 bg-white/[0.03] hover:border-red-400/30 hover:bg-white/[0.05]'
-              }`}
+              className={cx(
+                styles.thumbButton,
+                itemIndex === index && styles.thumbButtonActive
+              )}
             >
-              <div className="relative h-20 w-24 overflow-hidden rounded-2xl">
+              <div className={styles.thumbImageWrap}>
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover"
+                  className={styles.thumbImage}
                   sizes="96px"
                 />
               </div>
               <div>
-                <h5 className="font-semibold text-white">{item.title}</h5>
-                <p className="mt-1 line-clamp-2 text-sm text-zinc-400">
-                  {item.text}
-                </p>
+                <h5 className={styles.thumbTitle}>{item.title}</h5>
+                <p className={styles.thumbText}>{item.text}</p>
               </div>
             </button>
           ))}
 
-          <div className="mt-1 flex gap-2 md:hidden">
+          <div className={styles.mobileControls}>
             <button
               onClick={prev}
               type="button"
-              className="flex-1 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white"
+              className={styles.mobileButton}
             >
               Anterior
             </button>
             <button
               onClick={next}
               type="button"
-              className="flex-1 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white"
+              className={styles.mobileButton}
             >
               Próximo
             </button>
@@ -463,52 +476,45 @@ export const GabriRecPortfolioSite = () => {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
         const topVisible = visible[0]?.target?.id as CategoryKey | undefined;
-        if (topVisible) {
-          setActiveSection(topVisible);
-        }
+        if (topVisible) setActiveSection(topVisible);
       },
       { threshold: [0.25, 0.45, 0.7] }
     );
 
     sections.forEach((section) => observer.observe(section));
-
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-black text-white selection:bg-emerald-300 selection:text-black">
-      <div className="fixed inset-0 -z-20 bg-[linear-gradient(to_bottom,#020202,#040404,#070707)]" />
-      <div className="fixed inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:34px_34px] opacity-[0.08]" />
-      <NeonOrb className="left-[-4rem] top-12 h-52 w-52 bg-emerald-500/20" />
-      <NeonOrb className="right-[-5rem] top-40 h-72 w-72 bg-red-500/15" />
-      <NeonOrb className="bottom-24 left-1/3 h-80 w-80 bg-emerald-400/10" />
+    <div className={styles.page}>
+      <div className={styles.bgGradient} />
+      <div className={styles.bgGrid} />
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-6">
-          <a href="#topo" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-400/20 bg-white/5 shadow-[0_0_30px_rgba(16,185,129,0.18)]">
-              <Film className="h-5 w-5 text-emerald-300" />
+      <NeonOrb className={cx(styles.orbLeft)} />
+      <NeonOrb className={cx(styles.orbRight)} />
+      <NeonOrb className={cx(styles.orbBottom)} />
+
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <a href="#topo" className={styles.brand}>
+            <div className={styles.brandIconWrap}>
+              <Film className={styles.brandIcon} />
             </div>
             <div>
-              <div className="text-lg font-black tracking-[0.18em] text-white">
-                GABRI REC
-              </div>
-              <div className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-                Foto & Vídeo Portfolio
-              </div>
+              <div className={styles.brandTitle}>GABRI REC</div>
+              <div className={styles.brandSubtitle}>Foto & Vídeo Portfolio</div>
             </div>
           </a>
 
-          <nav className="hidden items-center gap-2 lg:flex">
+          <nav className={styles.desktopNav}>
             {navItems.map((item) => (
               <a
                 key={item.key}
                 href={`#${item.key}`}
-                className={`rounded-full px-4 py-2 text-sm transition ${
-                  activeSection === item.key
-                    ? 'bg-white text-black'
-                    : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:border-emerald-400/30 hover:text-white'
-                }`}
+                className={cx(
+                  styles.navLink,
+                  activeSection === item.key && styles.navLinkActive
+                )}
               >
                 {item.label}
               </a>
@@ -517,14 +523,14 @@ export const GabriRecPortfolioSite = () => {
 
           <button
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="inline-flex rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-white lg:hidden"
+            className={styles.menuButton}
             aria-label="Abrir menu"
             type="button"
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className={styles.menuIcon} />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu className={styles.menuIcon} />
             )}
           </button>
         </div>
@@ -535,15 +541,15 @@ export const GabriRecPortfolioSite = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="border-t border-white/10 bg-black/95 px-4 py-4 lg:hidden"
+              className={styles.mobileNav}
             >
-              <div className="mx-auto flex max-w-7xl flex-col gap-2">
+              <div className={styles.mobileNavInner}>
                 {navItems.map((item) => (
                   <a
                     key={item.key}
                     href={`#${item.key}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-zinc-200"
+                    className={styles.mobileNavLink}
                   >
                     {item.label}
                   </a>
@@ -555,36 +561,34 @@ export const GabriRecPortfolioSite = () => {
       </header>
 
       <main id="topo">
-        <section className="relative overflow-hidden">
-          <div className="mx-auto grid min-h-[92vh] max-w-7xl items-center gap-10 px-4 py-16 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+        <section className={styles.heroSection}>
+          <div className={styles.heroInner}>
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-emerald-300"
+                className={cx(styles.heroBadge, styles.tituloDiv)}
               >
-                <Sparkles className="h-4 w-4" />
-                Experiência visual premium
+                <Sparkles className={styles.sparklesIcon} />
+                Imagem premium de Memórias reais!
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.05 }}
-                className="mt-6 max-w-4xl text-5xl font-black leading-[0.94] tracking-tight md:text-7xl xl:text-8xl"
+                className={styles.heroTitle}
               >
                 Portfólio futurista para mostrar trabalhos que{' '}
-                <span className="bg-gradient-to-r from-emerald-300 via-white to-red-500 bg-clip-text text-transparent">
-                  emocionam e vendem.
-                </span>
+                <span className={styles.gradientText}>emocionam e vendem.</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.12 }}
-                className="mt-6 max-w-2xl text-base leading-7 text-zinc-400 md:text-lg"
+                className={styles.heroText}
               >
                 Um site para a Gabri Rec apresentar casamentos, pré wedding,
                 aniversários, campanhas comerciais, trabalhos institucionais e
@@ -596,18 +600,12 @@ export const GabriRecPortfolioSite = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.18 }}
-                className="mt-8 flex flex-wrap gap-3"
+                className={styles.heroButtons}
               >
-                <a
-                  href="#casamento"
-                  className="rounded-2xl bg-gradient-to-r from-emerald-400 to-emerald-300 px-6 py-3 font-semibold text-black shadow-[0_0_35px_rgba(16,185,129,0.25)] transition hover:scale-[1.02]"
-                >
+                <a href="#casamento" className={styles.primaryButton}>
                   Explorar portfólio
                 </a>
-                <a
-                  href="#contato"
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-3 font-semibold text-white transition hover:border-red-400/35 hover:bg-white/[0.07]"
-                >
+                <a href="#contato" className={styles.secondaryButton}>
                   Solicitar orçamento
                 </a>
               </motion.div>
@@ -616,7 +614,7 @@ export const GabriRecPortfolioSite = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.22 }}
-                className="mt-10 grid max-w-2xl grid-cols-2 gap-3 md:grid-cols-4"
+                className={styles.tagsGrid}
               >
                 {[
                   'Casamentos',
@@ -628,10 +626,7 @@ export const GabriRecPortfolioSite = () => {
                   'Foto',
                   'Vídeo'
                 ].map((tag) => (
-                  <div
-                    key={tag}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-zinc-200 backdrop-blur"
-                  >
+                  <div key={tag} className={styles.tagCard}>
                     {tag}
                   </div>
                 ))}
@@ -642,41 +637,41 @@ export const GabriRecPortfolioSite = () => {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative"
+              className={styles.heroVisualWrap}
             >
-              <div className="absolute -left-6 -top-6 h-24 w-24 rounded-3xl border border-emerald-400/20 bg-emerald-400/10 blur-xl" />
-              <div className="absolute -bottom-8 right-0 h-24 w-24 rounded-3xl border border-red-400/20 bg-red-400/10 blur-xl" />
+              <div className={styles.heroGlowLeft} />
+              <div className={styles.heroGlowRight} />
 
-              <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-zinc-950/80 shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_0_90px_rgba(16,185,129,0.08)]">
-                <div className="relative h-[560px] md:h-[700px]">
+              <div className={styles.heroCard}>
+                <div className={styles.heroMedia}>
                   <Image
                     src={portfolioData.casamento.featured.image}
                     alt="Casamento destaque"
                     fill
-                    className="object-cover"
+                    className={styles.heroImage}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                   />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.22),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(239,68,68,0.18),transparent_25%),linear-gradient(to_top,rgba(0,0,0,0.92),rgba(0,0,0,0.28),rgba(0,0,0,0.08))]" />
+                  <div className={styles.heroOverlay} />
 
-                  <div className="absolute left-5 top-5 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur">
-                    <div className="text-xs uppercase tracking-[0.22em] text-emerald-300">
+                  <div className={styles.heroMiniCard}>
+                    <div className={styles.heroMiniCardLabel}>
                       Wedding highlight
                     </div>
-                    <div className="mt-1 text-sm font-semibold text-white">
+                    <div className={styles.heroMiniCardText}>
                       Slide principal em destaque
                     </div>
                   </div>
 
-                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                    <div className="mb-3 inline-flex rounded-full bg-gradient-to-r from-emerald-300 via-white to-red-400 px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] text-black">
+                  <div className={styles.heroCardContent}>
+                    <div className={styles.heroSignature}>
                       Gabri Rec Signature
                     </div>
-                    <h2 className="max-w-2xl text-3xl font-black text-white md:text-5xl">
+                    <h2 className={styles.heroCardTitle}>
                       Casamentos com beleza, emoção e acabamento
                       cinematográfico.
                     </h2>
-                    <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-300 md:text-base">
+                    <p className={styles.heroCardText}>
                       Estrutura de apresentação pensada para impressionar
                       clientes logo na primeira dobra da página.
                     </p>
@@ -687,23 +682,21 @@ export const GabriRecPortfolioSite = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-2 md:px-6">
-          <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
+        <section className={styles.categoriesSection}>
+          <div className={styles.categoriesGrid}>
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <a
                   key={item.key}
                   href={`#${item.key}`}
-                  className="group rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-emerald-400/25 hover:bg-white/[0.05]"
+                  className={styles.categoryCard}
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/40 text-emerald-300 transition group-hover:border-emerald-400/30">
-                    <Icon className="h-5 w-5" />
+                  <div className={styles.categoryIconWrap}>
+                    <Icon className={styles.categoryIcon} />
                   </div>
-                  <h3 className="mt-4 text-lg font-bold text-white">
-                    {item.label}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-zinc-400">
+                  <h3 className={styles.categoryTitle}>{item.label}</h3>
+                  <p className={styles.categoryText}>
                     Galeria com capa principal e slider para apresentação dos
                     trabalhos.
                   </p>
@@ -713,7 +706,7 @@ export const GabriRecPortfolioSite = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-8 md:px-6">
+        <section className={styles.portfolioSection}>
           {categoryOrder.map((key) => (
             <GallerySection
               key={key}
@@ -723,8 +716,8 @@ export const GabriRecPortfolioSite = () => {
           ))}
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-14">
-          <div className="grid gap-6 lg:grid-cols-3">
+        <section className={styles.benefitsSection}>
+          <div className={styles.benefitsGrid}>
             {[
               {
                 title: 'UX pensada para conversão',
@@ -739,36 +732,28 @@ export const GabriRecPortfolioSite = () => {
                 text: 'Você pode trocar facilmente as imagens de exemplo pelos trabalhos reais da Gabri Rec e depois conectar WhatsApp, Instagram e formulário.'
               }
             ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-6 backdrop-blur"
-              >
-                <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-400">
-                  {item.text}
-                </p>
+              <div key={item.title} className={styles.benefitCard}>
+                <h3 className={styles.benefitTitle}>{item.title}</h3>
+                <p className={styles.benefitText}>{item.text}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section
-          id="contato"
-          className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-20"
-        >
-          <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-zinc-950/80 p-8 md:p-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(239,68,68,0.14),transparent_25%)]" />
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+        <section id="contato" className={styles.contactSection}>
+          <div className={styles.contactCard}>
+            <div className={styles.contactOverlay} />
+            <div className={styles.contactInner}>
               <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-emerald-300">
-                  <Sparkles className="h-4 w-4" />
+                <div className={styles.contactBadge}>
+                  <Sparkles className={styles.sparklesIcon} />
                   Vamos criar algo memorável
                 </div>
-                <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">
+                <h2 className={styles.contactTitle}>
                   Transforme seus trabalhos em uma vitrine que impressiona logo
                   no primeiro clique.
                 </h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
+                <p className={styles.contactText}>
                   Esta landing page já está pronta como base visual. O próximo
                   passo é substituir as imagens de exemplo pelos seus materiais
                   reais e personalizar textos, contatos e links oficiais da
@@ -776,14 +761,14 @@ export const GabriRecPortfolioSite = () => {
                 </p>
               </div>
 
-              <div className="grid gap-4">
+              <div className={styles.contactList}>
                 {[
                   { icon: Instagram, label: 'Instagram', value: '@gabrirec' },
-                  { icon: Phone, label: 'WhatsApp', value: '(00) 00000-0000' },
+                  { icon: Phone, label: 'WhatsApp', value: '(22) 98119-3154' },
                   {
                     icon: Mail,
                     label: 'E-mail',
-                    value: 'contato@gabrirec.com'
+                    value: 'gabrireoficial@gmail.com'
                   },
                   {
                     icon: MapPin,
@@ -793,20 +778,13 @@ export const GabriRecPortfolioSite = () => {
                 ].map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-4 rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-4"
-                    >
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/40 text-emerald-300">
-                        <Icon className="h-5 w-5" />
+                    <div key={item.label} className={styles.contactItem}>
+                      <div className={styles.contactIconWrap}>
+                        <Icon className={styles.contactIcon} />
                       </div>
                       <div>
-                        <div className="text-xs uppercase tracking-[0.18em] text-zinc-500">
-                          {item.label}
-                        </div>
-                        <div className="mt-1 text-base font-semibold text-white">
-                          {item.value}
-                        </div>
+                        <div className={styles.contactLabel}>{item.label}</div>
+                        <div className={styles.contactValue}>{item.value}</div>
                       </div>
                     </div>
                   );
