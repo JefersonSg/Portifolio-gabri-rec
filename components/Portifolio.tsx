@@ -24,6 +24,7 @@ import {
   Store,
   X
 } from 'lucide-react';
+import PlayerVideo from './PlayerVideo';
 
 type PortfolioItem = {
   title: string;
@@ -362,16 +363,7 @@ function GallerySection({
       </div>
       {play && (
         <div className={styles.PlayVideo}>
-          <video className={styles.videoPlayer} controls autoPlay>
-            <source src="/videos/video.mp4" type="video/mp4" />
-          </video>
-          <p
-            onClick={() => {
-              setPlay(false);
-            }}
-          >
-            xis
-          </p>
+          <PlayerVideo setPlay={setPlay} />
         </div>
       )}
       <div className={styles.galleryGrid}>
