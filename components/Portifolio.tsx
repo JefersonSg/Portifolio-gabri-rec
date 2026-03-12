@@ -66,8 +66,9 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
       title: 'Bia Alvim & Danilo',
       subtitle:
         'Um casamento cinematográfico, elegante e cheio de emoção — pensado para eternizar cada detalhe com sofisticação.',
-      image:
-        '/fotos/Bia Alvim & Danilo/Capa.jpg',
+      image: '/fotos/Bia Alvim & Danilo/Capa.jpg',
+      video: '/videos/video.mp4',
+      description: 'Cobertura completa do casamento, desde os preparativos até a festa, com uma narrativa visual envolvente e estética premium.',
       tag: 'Casamento destaque'
     },
     items: [
@@ -99,6 +100,8 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
       title: 'Ana & Diego',
       subtitle:
         'Ensaios com direção leve, estética sofisticada e conexão real para contar a história do casal com personalidade.',
+        description: 'Ensaio em campo aberto com direção natural e clima romântico, valorizando a conexão do casal e a beleza do cenário.',
+        video: '/videos/video.mp4',
       image:
         'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1800&q=80',
       tag: 'Ensaio destaque'
@@ -134,6 +137,8 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         'Cobertura vibrante e moderna, feita para emocionar, valorizar a festa e gerar lembranças inesquecíveis.',
       image:
         'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1800&q=80',
+                description: 'Ensaio em campo aberto com direção natural e clima romântico, valorizando a conexão do casal e a beleza do cenário.',
+        video: '/videos/video.mp4',
       tag: 'Evento destaque'
     },
     items: [
@@ -165,6 +170,8 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
       title: 'Campanhas Comerciais',
       subtitle:
         'Conteúdo que valoriza marca, produto e posicionamento, com estética forte e acabamento profissional.',
+                description: 'Ensaio em campo aberto com direção natural e clima romântico, valorizando a conexão do casal e a beleza do cenário.',
+        video: '/videos/video.mp4',
       image:
         'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80',
       tag: 'Campanha destaque'
@@ -200,6 +207,8 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         'Narrativas visuais que transmitem credibilidade, impacto e propósito para órgãos, empresas e marcas.',
       image:
         'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80',
+                description: 'Ensaio em campo aberto com direção natural e clima romântico, valorizando a conexão do casal e a beleza do cenário.',
+        video: '/videos/video.mp4',
       tag: 'Produção destaque'
     },
     items: [
@@ -233,6 +242,8 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         'Cortes rápidos, estética premium e construção pensada para alcance, retenção e conversão.',
       image:
         'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1800&q=80',
+                description: 'Ensaio em campo aberto com direção natural e clima romântico, valorizando a conexão do casal e a beleza do cenário.',
+        video: '/videos/video.mp4',
       tag: 'Conteúdo destaque'
     },
     items: [
