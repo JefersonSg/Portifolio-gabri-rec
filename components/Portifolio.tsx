@@ -63,16 +63,16 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
     icon: Heart,
     accent: 'emeraldRedEmerald',
     featured: {
-      title: 'Juliana & Rafael',
+      title: 'Bia Alvim & Danilo',
       subtitle:
         'Um casamento cinematográfico, elegante e cheio de emoção — pensado para eternizar cada detalhe com sofisticação.',
       image:
-        'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80',
+        '/fotos/Bia Alvim & Danilo/Capa.jpg',
       tag: 'Casamento destaque'
     },
     items: [
       {
-        title: 'Juliana & Rafael',
+        title: 'Juliana & Carlos Victor',
         image:
           'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80',
         text: 'Cerimônia ao pôr do sol com cobertura completa de foto e vídeo.'
@@ -385,7 +385,7 @@ function GallerySection({
               className={styles.sliderMedia}
             >
               <Image
-                src={section.items[index].image}
+                src={`/fotos/${section.items[index].title}/Capa.jpg`}
                 alt={section.items[index].title}
                 fill
                 className={styles.sliderImage}
