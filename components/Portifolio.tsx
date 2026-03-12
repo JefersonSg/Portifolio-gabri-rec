@@ -30,6 +30,7 @@ type PortfolioItem = {
   title: string;
   image: string;
   text: string;
+  capa: string;
 };
 
 type FeaturedItem = {
@@ -66,7 +67,7 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
       title: 'Bia Alvim & Danilo',
       subtitle:
         'Um casamento cinematográfico, elegante e cheio de emoção — pensado para eternizar cada detalhe com sofisticação.',
-      image: '/fotos/Bia Alvim & Danilo/Capa.jpg',
+      image: '/fotos/bia-alvim-danilo/capa.jpg',
       video: '/videos/video.mp4',
       description:
         'Cobertura completa do casamento, desde os preparativos até a festa, com uma narrativa visual envolvente e estética premium.',
@@ -75,20 +76,23 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
     items: [
       {
         title: 'Juliana & Carlos Victor',
-        image:
-          'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80',
+        image: '/fotos/juliana-carlos-victor/capa.jpg',
+        capa: '/fotos/bia-alvim-danilo/capa.jpg',
         text: 'Cerimônia ao pôr do sol com cobertura completa de foto e vídeo.'
       },
       {
         title: 'Camila & Pedro',
         image:
           'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/juliana-carlos-victor/capa.jpg',
         text: 'Making of, votos e festa com uma linguagem moderna, elegante e sensível.'
       },
       {
         title: 'Fernanda & Lucas',
         image:
           'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/fernanda-lucas/capa.jpg',
+
         text: 'Cobertura intimista com edição premium e estética cinematográfica.'
       }
     ]
@@ -113,18 +117,21 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         title: 'Ana & Diego',
         image:
           'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/ana-diego/capa.jpg',
         text: 'Ensaio em campo aberto com direção natural e clima romântico.'
       },
       {
         title: 'Bia & Matheus',
         image:
           'https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/fernanda-lucas/capa.jpg',
         text: 'Luz dourada, enquadramentos criativos e narrativa visual envolvente.'
       },
       {
         title: 'Lívia & Breno',
         image:
           'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/livia-breno/capa.jpg',
         text: 'Minimalista, elegante e emocional do início ao fim.'
       }
     ]
@@ -149,18 +156,21 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         title: '15 Anos da Raica',
         image:
           'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/15-anos-raica/capa.jpg',
         text: 'Entrada, pista, família e os momentos mais marcantes em alto impacto.'
       },
       {
         title: 'Aniversário Infantil',
         image:
           'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/aniversario-infantil/capa.jpg',
         text: 'Cobertura leve, colorida e cheia de espontaneidade.'
       },
       {
         title: 'Festa Premium',
         image:
           'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/festa-premium/capa.jpg',
         text: 'Vídeo dinâmico com cortes modernos e estética de impacto.'
       }
     ]
@@ -185,18 +195,22 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         title: 'Moda & Lifestyle',
         image:
           'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/moda-lifestyle/capa.jpg',
         text: 'Reels, vitrines e campanhas com cara de marca grande.'
       },
       {
         title: 'Loja de Acessórios',
         image:
           'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/loja-acessorios/capa.jpg',
+
         text: 'Fotos de produto e vídeos que elevam a percepção de valor.'
       },
       {
         title: 'Negócios Locais',
         image:
           'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/negocios-locais/capa.jpg',
         text: 'Conteúdo estratégico para atrair clientes e gerar autoridade.'
       }
     ]
@@ -221,18 +235,21 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         title: 'Prefeituras & Órgãos',
         image:
           'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/prefeituras-orgaos/capa.jpg',
         text: 'Cobertura oficial, campanhas e vídeos institucionais de alto nível.'
       },
       {
         title: 'Hospital & Saúde',
         image:
           'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/hospital-saude/capa.jpg',
         text: 'Linguagem humana, profissional e informativa para projetos públicos e privados.'
       },
       {
         title: 'Eventos Oficiais',
         image:
           'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/eventos-oficiais/capa.jpg',
         text: 'Registros impactantes para fortalecer a imagem institucional.'
       }
     ]
@@ -257,18 +274,21 @@ const portfolioData: Record<CategoryKey, PortfolioSection> = {
         title: 'Reels Comerciais',
         image:
           'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/reels-comerciais/capa.jpg',
         text: 'Conteúdo para vender, conectar e destacar a marca no feed.'
       },
       {
         title: 'Reels Institucionais',
         image:
           'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/reels-institucionais/capa.jpg',
         text: 'Vídeos curtos com narrativa clara, dinâmica e memorável.'
       },
       {
         title: 'Reels Autorais',
         image:
           'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
+        capa: '/fotos/reels-autorais/capa.jpg',
         text: 'Uma linguagem visual atual, pensada para performance e estética.'
       }
     ]
@@ -402,7 +422,7 @@ function GallerySection({
               className={styles.sliderMedia}
             >
               <Image
-                src={`/fotos/${section.items[index].title}/Capa.jpg`}
+                src={`${section.items[index].image}`}
                 alt={section.items[index].title}
                 fill
                 className={styles.sliderImage}
