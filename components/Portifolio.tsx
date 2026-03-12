@@ -37,6 +37,8 @@ type FeaturedItem = {
   subtitle: string;
   image: string;
   tag: string;
+  video: string;
+  description: string;
 };
 
 type PortfolioSection = {
@@ -363,7 +365,12 @@ function GallerySection({
       </div>
       {play && (
         <div className={styles.PlayVideo}>
-          <PlayerVideo setPlay={setPlay} />
+          <PlayerVideo
+            setPlay={setPlay}
+            videoSrc={section.featured.video}
+            videoTitle={section.featured.title}
+            videoDescription={section.featured.description}
+          />
         </div>
       )}
       <div className={styles.galleryGrid}>
