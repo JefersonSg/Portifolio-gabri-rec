@@ -590,7 +590,7 @@ export const GabriRecPortfolioSite = () => {
                 transition={{ duration: 0.7, delay: 0.05 }}
                 className={styles.heroTitle}
               >
-                Portfólio futurista para mostrar trabalhos que{' '}
+                Portfólio de trabalhos que{' '}
                 <span className={styles.gradientText}>emocionam e vendem.</span>
               </motion.h1>
 
